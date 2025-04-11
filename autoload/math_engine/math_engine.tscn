@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cakfsr6nkk5f5"]
+
+[ext_resource type="Script" uid="uid://byynn83laju7h" path="res://autoload/math_engine/math_engine.gd" id="1_04660"]
+
+[node name="MathEngine" type="Node"]
+script = ExtResource("1_04660")
