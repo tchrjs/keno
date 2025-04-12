@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+KenoEngine="*res://autoload/keno_engine/keno_engine.gd"
 MathEngine="*res://autoload/math_engine/math_engine.gd"
 
 [display]
@@ -24,6 +25,17 @@ MathEngine="*res://autoload/math_engine/math_engine.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="canvas_items"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://autoload/": "orange",
+"res://components/": "purple",
+"res://resources/": "pink",
+"res://scenes/": "teal",
+"res://util/": "blue"
+}
 
 [rendering]
 

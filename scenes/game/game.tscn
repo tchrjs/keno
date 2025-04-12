@@ -1,7 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=7 format=3 uid="uid://l577flp108ri"]
 
+[ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://bbb5whurct50v" path="res://components/board/board.tscn" id="1_sul5r"]
+[ext_resource type="PackedScene" uid="uid://v1nnvw684ug3" path="res://components/dashboard/dashboard.tscn" id="3_0sr1o"]
+[ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://components/keno/idle.gd" id="3_5i0tg"]
+[ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://components/keno/play.gd" id="4_5i0tg"]
+[ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://util/state_machine/state_machine.gd" id="4_kelw5"]
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("1_7h61r")
+state_machine = NodePath("StateMachine")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_kelw5")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://brwmd6hywtyyt"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("dashboard")]
+script = ExtResource("3_5i0tg")
+dashboard = NodePath("../../Dashboard")
+metadata/_custom_type_script = "uid://lyh78ppnftnq"
+
+[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board")]
+script = ExtResource("4_5i0tg")
+board = NodePath("../../Board")
+metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
 [node name="Board" parent="." instance=ExtResource("1_sul5r")]
+
+[node name="Dashboard" parent="." node_paths=PackedStringArray("board") instance=ExtResource("3_0sr1o")]
+board = NodePath("../Board")

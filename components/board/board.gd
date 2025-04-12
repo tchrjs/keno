@@ -7,8 +7,8 @@ var spot_scene: PackedScene = load("res://components/board/spot.tscn")
 var spots: Array[Spot] = []
 var marked_spots: Array[Spot] = []
 
+# Add spots onto grid container.
 func _ready() -> void:
-	# Add spots onto grid container.
 	for i in range(1, MathEngine.pool_size + 1):
 		var spot: Spot = spot_scene.instantiate()
 		spot.set_number(i)
@@ -20,6 +20,12 @@ func _ready() -> void:
 		else:
 			bottom_grid_container.add_child(spot)
 
+# Clear all marked spots.
+func clear() -> void:
+	for spot in marked_spots.duplicate():
+		_on_spot_mark_toggled(spot, false)
+
+# Update marked spots.
 func _on_spot_mark_toggled(spot: Spot, toggled_on: bool) -> void:
 	if toggled_on:
 		if marked_spots.size() < MathEngine.max_pick:

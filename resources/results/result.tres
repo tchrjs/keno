@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ctoslf05eoqvk"]
+
+[ext_resource type="Script" uid="uid://cdar0sgdcbcj3" path="res://resources/results/result.gd" id="1_dvb5f"]
+
+[resource]
+script = ExtResource("1_dvb5f")
+drawn_numbers = Array[int]([])
+marked_numbers = Array[int]([])

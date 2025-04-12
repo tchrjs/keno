@@ -9,6 +9,7 @@ custom_minimum_size = Vector2(96, 88)
 offset_right = 104.0
 offset_bottom = 96.0
 focus_mode = 0
+toggle_mode = true
 flat = true
 script = ExtResource("1_xdq5v")
 background = NodePath("Background")
