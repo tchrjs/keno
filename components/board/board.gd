@@ -22,11 +22,18 @@ func _ready() -> void:
 
 # Clear all marked spots.
 func clear() -> void:
+	reset()
 	for spot in marked_spots.duplicate():
 		_on_spot_mark_toggled(spot, false)
 
+# reset spots.
+func reset() -> void:
+	for spot in spots:
+		spot.reset()
+
 # Update marked spots.
 func _on_spot_mark_toggled(spot: Spot, toggled_on: bool) -> void:
+	reset()
 	if toggled_on:
 		if marked_spots.size() < MathEngine.max_pick:
 			marked_spots.append(spot)

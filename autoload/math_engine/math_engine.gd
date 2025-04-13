@@ -6,8 +6,10 @@ extends Node
 @export var draw_number: int = 20
 @export var pool_size: int = 80
 
-var current_result: Result
+var drawn_numbers: Array[int]
+var picked_numbers: Array[int]
 
-func draw(picked_numbers: Array[int]) -> void:
-	var result: Result = KenoEngine.get_draw(picked_numbers)
-	current_result = result
+func draw(_picked_numbers: Array[int]) -> void:
+	var result: Result = KenoEngine.get_draw(_picked_numbers)
+	drawn_numbers = result.drawn_numbers
+	picked_numbers = result.picked_numbers
