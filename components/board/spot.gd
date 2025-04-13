@@ -35,9 +35,9 @@ func reset() -> void:
 	toggle_hit(false)
 
 func _on_mouse_entered() -> void:
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and !disabled:
 		emit_signal("mark_toggled", self, !is_marked)
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and !disabled:
 		emit_signal("mark_toggled", self, !is_marked)

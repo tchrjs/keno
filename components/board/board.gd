@@ -31,6 +31,10 @@ func reset() -> void:
 	for spot in spots:
 		spot.reset()
 
+func toggle(toggled_on: bool) -> void:
+	for spot in spots:
+		spot.disabled = !toggled_on
+
 # Update marked spots.
 func _on_spot_mark_toggled(spot: Spot, toggled_on: bool) -> void:
 	reset()

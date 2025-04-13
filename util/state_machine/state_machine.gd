@@ -37,7 +37,8 @@ func _on_child_transition(state: State, new_state_name: String) -> void:
 func _enter_state(state: State) -> void:
 	if current_state:
 		current_state.exit()
+		current_state.active = false
 
 	current_state = state
-	print("Current State: " + current_state.name)
 	state.enter()
+	current_state.active = true

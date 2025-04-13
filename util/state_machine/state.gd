@@ -3,6 +3,8 @@ class_name State extends Node
 @warning_ignore("unused_signal")
 signal transitioned(state: State, new_state_name: String)
 
+var active: bool = false
+
 func enter() -> void:
 	pass
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ggshpf28pbuc"]
+
+[ext_resource type="Script" uid="uid://mu4hj1xvwx1l" path="res://components/dashboard/play_button.gd" id="1_r3uj6"]
+
+[node name="PlayButton" type="Button"]
+custom_minimum_size = Vector2(200, 48)
+size_flags_horizontal = 8
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Draw"
+script = ExtResource("1_r3uj6")

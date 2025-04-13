@@ -1,8 +1,8 @@
 class_name Play extends State
 
 @export var board: Board
+@export var dashboard: Dashboard
 
-var accept_inputs: bool = false
 var tween: Tween
 
 func _init() -> void:
@@ -18,20 +18,20 @@ func enter() -> void:
 	emit_signal("transitioned", self, "idle")
 
 func exit() -> void:
-	accept_inputs = false
 	pass
+
+func interrupt() -> void:
+	if tween:
+		tween.custom_step(30)
 
 func _draw() -> void:
 	tween = create_tween()
 	for drawn_number in MathEngine.drawn_numbers:
-		var spot = board.spots[drawn_number - 1]
+		var spot: Spot = board.spots[drawn_number - 1]
 		if MathEngine.picked_numbers.has(drawn_number):
 			tween.tween_callback(spot.toggle_hit.bind(true)).set_delay(0.25)
 		else:
 			tween.tween_callback(spot.toggle_overlay.bind(true)).set_delay(0.25)
-	accept_inputs = true
+	dashboard.play_button.toggle_stop(true)
+	dashboard.play_button.disabled = false
 	await tween.finished
-
-func _input(event):
-	if event.is_action_pressed("interrupt") and tween and accept_inputs:
-		tween.custom_step(30)
