@@ -1,7 +1,7 @@
 class_name Play extends State
 
 @export var board: Board
-@export var dashboard: Dashboard
+@export var console: Console
 
 var tween: Tween
 
@@ -32,6 +32,6 @@ func _draw() -> void:
 			tween.tween_callback(spot.toggle_hit.bind(true)).set_delay(0.25)
 		else:
 			tween.tween_callback(spot.toggle_overlay.bind(true)).set_delay(0.25)
-	dashboard.play_button.toggle_stop(true)
-	dashboard.play_button.disabled = false
+	console.play_button.toggle_stop(true)
+	console.play_button.toggle(true)
 	await tween.finished

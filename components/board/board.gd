@@ -1,5 +1,7 @@
 class_name Board extends Control
 
+signal marked_spots_updated
+
 @export var top_grid_container: GridContainer
 @export var bottom_grid_container: GridContainer
 
@@ -47,3 +49,4 @@ func _on_spot_mark_toggled(spot: Spot, toggled_on: bool) -> void:
 		if spot_index >= 0:
 			marked_spots.remove_at(spot_index)
 			spot.toggle_mark(toggled_on)
+	emit_signal("marked_spots_updated")

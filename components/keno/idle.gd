@@ -1,15 +1,15 @@
 class_name Idle extends State
 
 @export var board: Board
-@export var dashboard: Dashboard
+@export var console: Console
 
 func enter() -> void:
-	dashboard.enable_all()
+	console.toggle(true)
 	board.toggle(true)
-	dashboard.play_button.toggle_stop(false)
+	console.play_button.toggle_stop(false)
 
 func exit() -> void:
-	dashboard.disable_all()
+	console.toggle(false)
 	board.toggle(false)
 
 func play() -> void:

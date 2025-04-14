@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=9 format=3 uid="uid://l577flp108ri"]
 
 [ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://bbb5whurct50v" path="res://components/board/board.tscn" id="1_sul5r"]
 [ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://components/keno/idle.gd" id="3_5i0tg"]
 [ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://components/keno/play.gd" id="4_5i0tg"]
 [ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://util/state_machine/state_machine.gd" id="4_kelw5"]
-[ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/dashboard/dashboard.gd" id="6_5i0tg"]
-[ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/dashboard/play_button.tscn" id="7_bdhmt"]
+[ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/console/console.gd" id="6_5i0tg"]
+[ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/buttons/clear_button.tscn" id="7_87uf6"]
+[ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/buttons/play_button.tscn" id="7_bdhmt"]
 
 [node name="Game" type="Node" node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_7h61r")
@@ -17,21 +18,21 @@ script = ExtResource("4_kelw5")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://brwmd6hywtyyt"
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "dashboard")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "console")]
 script = ExtResource("3_5i0tg")
 board = NodePath("../../Board")
-dashboard = NodePath("../../Dashboard")
+console = NodePath("../../Console")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
-[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "dashboard")]
+[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "console")]
 script = ExtResource("4_5i0tg")
 board = NodePath("../../Board")
-dashboard = NodePath("../../Dashboard")
+console = NodePath("../../Console")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
 [node name="Board" parent="." instance=ExtResource("1_sul5r")]
 
-[node name="Dashboard" type="Control" parent="." node_paths=PackedStringArray("board", "clear_button", "play_button")]
+[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button")]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -40,11 +41,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 script = ExtResource("6_5i0tg")
+state_machine = NodePath("../StateMachine")
 board = NodePath("../Board")
 clear_button = NodePath("MarginContainer/ClearButton")
 play_button = NodePath("MarginContainer/PlayButton")
 
-[node name="MarginContainer" type="MarginContainer" parent="Dashboard"]
+[node name="MarginContainer" type="MarginContainer" parent="Console"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -57,17 +59,14 @@ theme_override_constants/margin_left = 38
 theme_override_constants/margin_right = 38
 theme_override_constants/margin_bottom = 38
 
-[node name="ClearButton" type="Button" parent="Dashboard/MarginContainer"]
-custom_minimum_size = Vector2(200, 48)
+[node name="ClearButton" parent="Console/MarginContainer" node_paths=PackedStringArray("board") instance=ExtResource("7_87uf6")]
 layout_mode = 2
-size_flags_horizontal = 0
-focus_mode = 0
-theme_override_font_sizes/font_size = 32
-text = "Clear"
+board = NodePath("../../../Board")
 
-[node name="PlayButton" parent="Dashboard/MarginContainer" instance=ExtResource("7_bdhmt")]
+[node name="PlayButton" parent="Console/MarginContainer" node_paths=PackedStringArray("board") instance=ExtResource("7_bdhmt")]
 layout_mode = 2
+board = NodePath("../../../Board")
 
-[connection signal="pressed" from="Dashboard/MarginContainer/ClearButton" to="Board" method="clear"]
-[connection signal="play_pressed" from="Dashboard/MarginContainer/PlayButton" to="StateMachine/Idle" method="play"]
-[connection signal="stop_pressed" from="Dashboard/MarginContainer/PlayButton" to="StateMachine/Play" method="interrupt"]
+[connection signal="pressed" from="Console/MarginContainer/ClearButton" to="Board" method="clear"]
+[connection signal="play_pressed" from="Console/MarginContainer/PlayButton" to="StateMachine/Idle" method="play"]
+[connection signal="stop_pressed" from="Console/MarginContainer/PlayButton" to="StateMachine/Play" method="interrupt"]

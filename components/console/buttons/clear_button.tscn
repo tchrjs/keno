@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5rypxtqb8fv0"]
+
+[ext_resource type="Script" uid="uid://b426eeepwsw4k" path="res://components/console/buttons/clear_button.gd" id="1_bnds4"]
+
+[node name="ClearButton" type="Button" node_paths=PackedStringArray("board")]
+custom_minimum_size = Vector2(200, 48)
+size_flags_horizontal = 0
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Clear"
+script = ExtResource("1_bnds4")
+board = NodePath("")
