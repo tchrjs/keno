@@ -1,15 +1,14 @@
 class_name Play extends State
 
 @export var board: Board
+@export var info_bar: InfoBar
 @export var console: Console
 
 var tween: Tween
 
-func _init() -> void:
-	pass
-
 func enter() -> void:
 	board.reset()
+	info_bar.update()
 	var picked_numbers: Array[int] = []
 	for spot in board.marked_spots:
 		picked_numbers.append(spot.number)

@@ -4,9 +4,10 @@ class_name Idle extends State
 @export var console: Console
 
 func enter() -> void:
-	console.toggle(true)
 	board.toggle(true)
+	console.toggle(true)
 	console.play_button.toggle_stop(false)
+
 
 func exit() -> void:
 	console.toggle(false)
