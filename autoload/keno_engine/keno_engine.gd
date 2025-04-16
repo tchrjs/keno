@@ -15,7 +15,14 @@ func get_draw(picked_numbers: Array[int]) -> Result:
 	# Set draw results.
 	result.drawn_numbers = drawn_numbers
 	result.picked_numbers = picked_numbers
-	result.credits_won = 0
+
+	# Find credits won.
+	result.picked_count = picked_numbers.size()
+	result.matched_count = 0
+	for item in result.drawn_numbers:
+		if item in result.picked_numbers:
+			result.matched_count += 1
+	result.credits_won = paytable.data["Payouts"][result.picked_count][result.matched_count]
 	return result
 
 func get_bet_levels() -> Array:

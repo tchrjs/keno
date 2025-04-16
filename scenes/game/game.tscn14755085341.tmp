@@ -30,18 +30,16 @@ board = NodePath("../../Board")
 console = NodePath("../../Console")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
-[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "info_bar", "console", "payouts")]
+[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "info_bar", "console")]
 script = ExtResource("4_5i0tg")
 board = NodePath("../../Board")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 console = NodePath("../../Console")
-payouts = NodePath("../../MarginContainer/Payouts")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
-[node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
+[node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar")]
 script = ExtResource("5_vaxfo")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
-payouts = NodePath("../../MarginContainer/Payouts")
 metadata/_custom_type_script = "uid://dllqec2c2ybot"
 
 [node name="Lose" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar")]
@@ -197,7 +195,6 @@ grow_vertical = 2
 texture = ExtResource("11_5jirj")
 
 [node name="Highlight" type="ColorRect" parent="MarginContainer/Payouts/VBoxContainer/Prizes"]
-visible = false
 custom_minimum_size = Vector2(316, 50)
 layout_mode = 1
 anchors_preset = 8

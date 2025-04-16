@@ -13,6 +13,8 @@ func update() -> void:
 		match state_machine.current_state.name.to_lower():
 			"idle": idle()
 			"play": play()
+			"win": win()
+			"lose": lose()
 
 func idle() -> void:
 	if board.marked_spots.size() < MathEngine.min_pick:
@@ -22,3 +24,9 @@ func idle() -> void:
 
 func play() -> void:
 	label.text = "Good Luck!"
+
+func win() -> void:
+	label.text = "Win $" + str("%0.2f" % (float(MathEngine.credits_won) / 100))
+
+func lose() -> void:
+	label.text = "Better Luck Next Time!"

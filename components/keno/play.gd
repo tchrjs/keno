@@ -3,18 +3,23 @@ class_name Play extends State
 @export var board: Board
 @export var info_bar: InfoBar
 @export var console: Console
+@export var payouts: Payouts
 
 var tween: Tween
 
 func enter() -> void:
 	board.reset()
+	payouts.reset()
 	info_bar.update()
 	var picked_numbers: Array[int] = []
 	for spot in board.marked_spots:
 		picked_numbers.append(spot.number)
 	MathEngine.draw(picked_numbers)
 	await _draw()
-	emit_signal("transitioned", self, "idle")
+	if MathEngine.credits_won > 0:
+		emit_signal("transitioned", self, "win")
+	else:
+		emit_signal("transitioned", self, "lose")
 
 func exit() -> void:
 	pass

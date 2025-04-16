@@ -1,6 +1,7 @@
 class_name Payouts extends Control
 
 @export var board: Board
+@export var highlight: ColorRect
 @export var prizes_container: VBoxContainer
 
 var rows: Array[PayoutsRow]
@@ -23,12 +24,29 @@ func update() -> void:
 		var win = payouts[i]
 		if win == 0:
 			continue
-		var prize: PayoutsRow = rows[row_counter]
-		prize.hits_label.text = str(i) if i >= 0 else ""
-		prize.win_label.text = "$" + str("%0.2f" % (float(win) / 100)) if win > 0 else ""
+		var row: PayoutsRow = rows[row_counter]
+		row.set_hits(i)
+		row.set_win(win)
 		row_counter += 1
 
 func clear() -> void:
+	toggle_highlight(false)
 	for row in rows:
-		row.hits_label.text = ""
-		row.win_label.text = ""
+		row.clear()
+
+func reset() -> void:
+	toggle_highlight(false)
+
+func set_highlight() -> void:
+	var matched_row = null
+	for row in rows:
+		if row.hits == MathEngine.matched_count:
+			matched_row = row
+			break
+
+	if matched_row:
+		highlight.global_position = matched_row.global_position + matched_row.size / 2 - highlight.size / 2
+		highlight.show()
+
+func toggle_highlight(toggled_on: bool) -> void:
+	highlight.visible = toggled_on
