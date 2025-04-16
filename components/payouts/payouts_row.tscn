@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dpp7xxw45ly3o" path="res://components/payouts/payouts_row.gd" id="1_da0uq"]
 
 [node name="PayoutsRow" type="HBoxContainer" node_paths=PackedStringArray("hits_label", "win_label")]
-custom_minimum_size = Vector2(250, 49)
+custom_minimum_size = Vector2(262, 49)
 offset_right = 275.0
 offset_bottom = 50.0
 script = ExtResource("1_da0uq")
@@ -11,7 +11,7 @@ hits_label = NodePath("Hits/HitsLabel")
 win_label = NodePath("Win/WinLabel")
 
 [node name="Hits" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 49)
+custom_minimum_size = Vector2(62, 49)
 layout_mode = 2
 size_flags_horizontal = 3
 
