@@ -1,5 +1,8 @@
 extends Node
 
+@export var paytable: JSON
+
+# Engine variables.
 var unpicked_numbers: Array[int] = []
 
 func get_draw(picked_numbers: Array[int]) -> Result:
@@ -14,6 +17,12 @@ func get_draw(picked_numbers: Array[int]) -> Result:
 	result.picked_numbers = picked_numbers
 	result.credits_won = 0
 	return result
+
+func get_bet_levels() -> Array:
+	return paytable.data["BetLevels"]
+
+func get_payouts() -> Array:
+	return paytable.data["Payouts"]
 
 func _reset() -> void:
 	unpicked_numbers = []

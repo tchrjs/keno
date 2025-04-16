@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-KenoEngine="*res://autoload/keno_engine/keno_engine.gd"
-MathEngine="*res://autoload/math_engine/math_engine.gd"
+KenoEngine="*res://autoload/keno_engine/keno_engine.tscn"
+MathEngine="*res://autoload/math_engine/math_engine.tscn"
 
 [display]
 
