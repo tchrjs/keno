@@ -11,7 +11,7 @@ hits_label = NodePath("Hits/HitsLabel")
 win_label = NodePath("Win/WinLabel")
 
 [node name="Hits" type="Control" parent="."]
-custom_minimum_size = Vector2(50, 45)
+custom_minimum_size = Vector2(50, 49)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -27,7 +27,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Win" type="Control" parent="."]
-custom_minimum_size = Vector2(200, 45)
+custom_minimum_size = Vector2(200, 49)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
