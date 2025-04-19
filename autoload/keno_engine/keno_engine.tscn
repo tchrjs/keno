@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c27ohul74cjpt"]
-
-[ext_resource type="Script" uid="uid://ca671okjys625" path="res://autoload/keno_engine/keno_engine.gd" id="1_ghsfn"]
-[ext_resource type="JSON" path="res://autoload/keno_engine/paytable.json" id="2_xek37"]
-
-[node name="KenoEngine" type="Node"]
-script = ExtResource("1_ghsfn")
-paytable = ExtResource("2_xek37")

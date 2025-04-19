@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyuuj2ib3qx7p"]
+
+[ext_resource type="Script" uid="uid://dr03m5nmtf45r" path="res://components/credits_meter/credits_meter.gd" id="1_4cuxr"]
+
+[node name="CreditMeter" type="Control" node_paths=PackedStringArray("credits")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+script = ExtResource("1_4cuxr")
+credits = NodePath("HBoxContainer/Credits")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 45.0
+grow_horizontal = 0
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Credits" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreditsLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Credits"

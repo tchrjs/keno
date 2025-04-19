@@ -1,15 +1,18 @@
-extends Node
+class_name KenoEngine extends Node
 
 @export var paytable: JSON
 
 # Engine variables.
 var unpicked_numbers: Array[int] = []
 
-func get_draw(picked_numbers: Array[int]) -> Result:
+var result: Result
+
+func get_draw(picked_numbers: Array[int], bet_level: int) -> Result:
+	Platform.remove_credits(get_bet_levels()[bet_level - 1])
 	_reset()
 
 	# Get results.
-	var result: Result = Result.new()
+	result = Result.new()
 	var drawn_numbers: Array[int] = _draw(MathEngine.draw_number)
 
 	# Set draw results.
@@ -24,6 +27,9 @@ func get_draw(picked_numbers: Array[int]) -> Result:
 			result.matched_count += 1
 	result.credits_won = paytable.data["Payouts"][result.picked_count][result.matched_count]
 	return result
+
+func draw_completed() -> void:
+	Platform.add_credits(result.credits_won)
 
 func get_bet_levels() -> Array:
 	return paytable.data["BetLevels"]

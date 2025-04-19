@@ -1,5 +1,7 @@
 extends Node
 
+@export var keno_engine: KenoEngine
+
 @export_subgroup("Game Config")
 @export var min_pick: int = 2
 @export var max_pick: int = 10
@@ -16,11 +18,11 @@ var picked_count: int
 var matched_count: int
 
 func _ready() -> void:
-	bet_levels = KenoEngine.get_bet_levels()
-	payouts = KenoEngine.get_payouts()
+	bet_levels = keno_engine.get_bet_levels()
+	payouts = keno_engine.get_payouts()
 
 func draw(_picked_numbers: Array[int]) -> void:
-	var result: Result = KenoEngine.get_draw(_picked_numbers)
+	var result: Result = keno_engine.get_draw(_picked_numbers, 1)
 	drawn_numbers = result.drawn_numbers
 	picked_numbers = result.picked_numbers
 	credits_won = result.credits_won
@@ -34,3 +36,6 @@ func draw(_picked_numbers: Array[int]) -> void:
 	print("Picked Count: " + str(picked_count))
 	print("Matched Count: " + str(matched_count))
 	print("")
+
+func draw_completed() -> void:
+	keno_engine.draw_completed()

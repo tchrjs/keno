@@ -4,6 +4,7 @@ class_name Lose extends State
 
 func enter() -> void:
 	info_bar.update()
+	MathEngine.draw_completed()
 	emit_signal("transitioned", self, "idle")
 
 func exit() -> void:

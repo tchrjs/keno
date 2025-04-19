@@ -12,7 +12,7 @@ func toggle_stop(toggled_on: bool) -> void:
 	text = "Stop" if toggled_on else "Draw"
 
 func _toggled_idle(_toggled_on: bool) -> void:
-	disabled = !_toggled_on || board.marked_spots.size() < MathEngine.min_pick
+	disabled = !_toggled_on || board.marked_spots.size() < MathEngine.min_pick || Platform.credits <= 0
 
 func _toggled_play(_toggled_on: bool) -> void:
 	disabled = !_toggled_on

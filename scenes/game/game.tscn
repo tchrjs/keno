@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=16 format=3 uid="uid://l577flp108ri"]
 
 [ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://scenes/game/states/idle.gd" id="3_5i0tg"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://scenes/game/states/lose.gd" id="6_ftsea"]
 [ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/buttons/clear_button.tscn" id="7_87uf6"]
 [ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/buttons/play_button.tscn" id="7_bdhmt"]
+[ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/credits_meter/credit_meter.tscn" id="7_otnwt"]
 [ext_resource type="Script" uid="uid://c80w1sdouppqp" path="res://components/payouts/payouts.gd" id="10_4j704"]
 [ext_resource type="Texture2D" uid="uid://wmn5560oxcqe" path="res://assets/payouts_background.png" id="11_5jirj"]
 [ext_resource type="PackedScene" uid="uid://6y67dxet8hp7" path="res://components/payouts/payouts_row.tscn" id="11_kp23o"]
@@ -35,19 +36,30 @@ script = ExtResource("4_5i0tg")
 board = NodePath("../../Board")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 console = NodePath("../../Console")
-payouts = NodePath("../../MarginContainer/Payouts")
+payouts = NodePath("../../PayoutsContainer/Payouts")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
 [node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
 script = ExtResource("5_vaxfo")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
-payouts = NodePath("../../MarginContainer/Payouts")
+payouts = NodePath("../../PayoutsContainer/Payouts")
 metadata/_custom_type_script = "uid://dllqec2c2ybot"
 
 [node name="Lose" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar")]
 script = ExtResource("6_ftsea")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 metadata/_custom_type_script = "uid://cb780ahycl4pk"
+
+[node name="MeterContainer" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="CreditMeter" parent="MeterContainer" instance=ExtResource("7_otnwt")]
+layout_mode = 2
 
 [node name="Board" type="Control" parent="." node_paths=PackedStringArray("top_grid_container", "bottom_grid_container")]
 layout_mode = 3
@@ -126,7 +138,7 @@ layout_mode = 2
 [node name="PlayButton" parent="Console/MarginContainer" instance=ExtResource("7_bdhmt")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="PayoutsContainer" type="MarginContainer" parent="."]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -134,7 +146,7 @@ offset_right = 375.0
 grow_vertical = 2
 theme_override_constants/margin_left = 75
 
-[node name="Payouts" type="Control" parent="MarginContainer" node_paths=PackedStringArray("board", "highlight", "prizes_container")]
+[node name="Payouts" type="Control" parent="PayoutsContainer" node_paths=PackedStringArray("board", "highlight", "prizes_container")]
 custom_minimum_size = Vector2(275, 486)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -144,7 +156,7 @@ board = NodePath("../../Board")
 highlight = NodePath("VBoxContainer/Prizes/Highlight")
 prizes_container = NodePath("VBoxContainer/Prizes/VBoxContainer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Payouts"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PayoutsContainer/Payouts"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -156,13 +168,13 @@ grow_horizontal = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Header" type="Control" parent="MarginContainer/Payouts/VBoxContainer"]
+[node name="Header" type="Control" parent="PayoutsContainer/Payouts/VBoxContainer"]
 z_index = 1
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Label" type="Label" parent="MarginContainer/Payouts/VBoxContainer/Header"]
+[node name="Label" type="Label" parent="PayoutsContainer/Payouts/VBoxContainer/Header"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,13 +186,13 @@ text = "Payouts"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Prizes" type="Control" parent="MarginContainer/Payouts/VBoxContainer"]
+[node name="Prizes" type="Control" parent="PayoutsContainer/Payouts/VBoxContainer"]
 custom_minimum_size = Vector2(328, 452)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Payouts/VBoxContainer/Prizes"]
+[node name="TextureRect" type="TextureRect" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
 custom_minimum_size = Vector2(328, 452)
 layout_mode = 1
 anchors_preset = 8
@@ -196,7 +208,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_5jirj")
 
-[node name="Highlight" type="ColorRect" parent="MarginContainer/Payouts/VBoxContainer/Prizes"]
+[node name="Highlight" type="ColorRect" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
 visible = false
 custom_minimum_size = Vector2(316, 50)
 layout_mode = 1
@@ -213,7 +225,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.67451, 0.196078, 0.196078, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Payouts/VBoxContainer/Prizes"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -228,30 +240,30 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PayoutsRow1" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow1" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 initial_hits_text = "Hits"
 initial_win_text = "Win"
 
-[node name="PayoutsRow2" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow2" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow3" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow3" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow4" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow4" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow5" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow5" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow6" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow6" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow7" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow7" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
-[node name="PayoutsRow8" parent="MarginContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
+[node name="PayoutsRow8" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
 layout_mode = 2
 
 [connection signal="pressed" from="Console/MarginContainer/ClearButton" to="Board" method="clear"]

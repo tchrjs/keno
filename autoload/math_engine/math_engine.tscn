@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cakfsr6nkk5f5"]
+[gd_scene load_steps=3 format=3 uid="uid://cakfsr6nkk5f5"]
 
 [ext_resource type="Script" uid="uid://byynn83laju7h" path="res://autoload/math_engine/math_engine.gd" id="1_04660"]
+[ext_resource type="PackedScene" uid="uid://c27ohul74cjpt" path="res://autoload/math_engine/keno_engine/keno_engine.tscn" id="2_mygfp"]
 
-[node name="MathEngine" type="Node"]
+[node name="MathEngine" type="Node" node_paths=PackedStringArray("keno_engine")]
 script = ExtResource("1_04660")
+keno_engine = NodePath("KenoEngine")
+
+[node name="KenoEngine" parent="." instance=ExtResource("2_mygfp")]
