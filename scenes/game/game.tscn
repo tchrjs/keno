@@ -1,20 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=14 format=3 uid="uid://l577flp108ri"]
 
 [ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game.gd" id="1_7h61r"]
-[ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://scenes/game/states/idle.gd" id="3_5i0tg"]
-[ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://scenes/game/states/play.gd" id="4_5i0tg"]
-[ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://util/state_machine/state_machine.gd" id="4_kelw5"]
+[ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://components/states/idle.gd" id="3_5i0tg"]
+[ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://components/states/play.gd" id="4_5i0tg"]
+[ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://addons/state_machine/state_machine.gd" id="4_kelw5"]
 [ext_resource type="Script" uid="uid://ckqysstys77uf" path="res://components/board/board.gd" id="5_2a8rs"]
-[ext_resource type="Script" uid="uid://dllqec2c2ybot" path="res://scenes/game/states/win.gd" id="5_vaxfo"]
+[ext_resource type="Script" uid="uid://dllqec2c2ybot" path="res://components/states/win.gd" id="5_vaxfo"]
 [ext_resource type="PackedScene" uid="uid://baccnd2iwlit" path="res://components/info_bar/info_bar.tscn" id="6_2a8rs"]
 [ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/console/console.gd" id="6_5i0tg"]
-[ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://scenes/game/states/lose.gd" id="6_ftsea"]
+[ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://components/states/lose.gd" id="6_ftsea"]
 [ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/buttons/clear_button.tscn" id="7_87uf6"]
 [ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/buttons/play_button.tscn" id="7_bdhmt"]
 [ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/credits_meter/credit_meter.tscn" id="7_otnwt"]
-[ext_resource type="Script" uid="uid://c80w1sdouppqp" path="res://components/payouts/payouts.gd" id="10_4j704"]
-[ext_resource type="Texture2D" uid="uid://wmn5560oxcqe" path="res://assets/payouts_background.png" id="11_5jirj"]
-[ext_resource type="PackedScene" uid="uid://6y67dxet8hp7" path="res://components/payouts/payouts_row.tscn" id="11_kp23o"]
+[ext_resource type="PackedScene" uid="uid://dm52x1wp8a6h8" path="res://components/payouts/payouts.tscn" id="13_vaxfo"]
 
 [node name="Game" type="Node" node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_7h61r")
@@ -146,125 +144,9 @@ offset_right = 375.0
 grow_vertical = 2
 theme_override_constants/margin_left = 75
 
-[node name="Payouts" type="Control" parent="PayoutsContainer" node_paths=PackedStringArray("board", "highlight", "prizes_container")]
-custom_minimum_size = Vector2(275, 486)
+[node name="Payouts" parent="PayoutsContainer" node_paths=PackedStringArray("board") instance=ExtResource("13_vaxfo")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("10_4j704")
 board = NodePath("../../Board")
-highlight = NodePath("VBoxContainer/Prizes/Highlight")
-prizes_container = NodePath("VBoxContainer/Prizes/VBoxContainer")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PayoutsContainer/Payouts"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -163.0
-offset_right = 163.0
-offset_bottom = 510.0
-grow_horizontal = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="Header" type="Control" parent="PayoutsContainer/Payouts/VBoxContainer"]
-z_index = 1
-custom_minimum_size = Vector2(250, 50)
-layout_mode = 2
-size_flags_vertical = 2
-
-[node name="Label" type="Label" parent="PayoutsContainer/Payouts/VBoxContainer/Header"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "Payouts"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Prizes" type="Control" parent="PayoutsContainer/Payouts/VBoxContainer"]
-custom_minimum_size = Vector2(328, 452)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="TextureRect" type="TextureRect" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
-custom_minimum_size = Vector2(328, 452)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -166.0
-offset_top = -226.0
-offset_right = 166.0
-offset_bottom = 226.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_5jirj")
-
-[node name="Highlight" type="ColorRect" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
-visible = false
-custom_minimum_size = Vector2(316, 50)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -158.0
-offset_top = -25.0
-offset_right = 158.0
-offset_bottom = 25.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.67451, 0.196078, 0.196078, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -125.0
-offset_top = -214.0
-offset_right = 125.0
-offset_bottom = 214.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="PayoutsRow1" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-initial_hits_text = "Hits"
-initial_win_text = "Win"
-
-[node name="PayoutsRow2" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow3" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow4" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow5" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow6" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow7" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
-
-[node name="PayoutsRow8" parent="PayoutsContainer/Payouts/VBoxContainer/Prizes/VBoxContainer" instance=ExtResource("11_kp23o")]
-layout_mode = 2
 
 [connection signal="pressed" from="Console/MarginContainer/ClearButton" to="Board" method="clear"]
 [connection signal="play_pressed" from="Console/MarginContainer/PlayButton" to="StateMachine/Idle" method="play"]
