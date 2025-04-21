@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://6y67dxet8hp7"]
 
-[ext_resource type="Script" uid="uid://dpp7xxw45ly3o" path="res://components/payouts/payouts_row.gd" id="1_da0uq"]
+[ext_resource type="Script" uid="uid://dpp7xxw45ly3o" path="res://components/payouts/payouts_row/payouts_row.gd" id="1_da0uq"]
 
 [node name="PayoutsRow" type="Control" node_paths=PackedStringArray("hits_label", "win_label")]
 custom_minimum_size = Vector2(262, 49)

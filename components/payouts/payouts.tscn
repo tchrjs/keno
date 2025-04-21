@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c80w1sdouppqp" path="res://components/payouts/payouts.gd" id="1_k48h6"]
 [ext_resource type="Texture2D" uid="uid://wmn5560oxcqe" path="res://assets/payouts_background.png" id="2_u1hgh"]
-[ext_resource type="PackedScene" uid="uid://6y67dxet8hp7" path="res://components/payouts/payouts_row.tscn" id="3_w143a"]
+[ext_resource type="PackedScene" uid="uid://6y67dxet8hp7" path="res://components/payouts/payouts_row/payouts_row.tscn" id="3_w143a"]
 
 [node name="Payouts" type="Control" node_paths=PackedStringArray("highlight", "prizes_container")]
 custom_minimum_size = Vector2(332, 510)

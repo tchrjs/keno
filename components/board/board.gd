@@ -5,7 +5,7 @@ signal marked_spots_updated
 @export var top_grid_container: GridContainer
 @export var bottom_grid_container: GridContainer
 
-var spot_scene: PackedScene = load("res://components/board/spot.tscn")
+var spot_scene: PackedScene = load("res://components/board/spot/spot.tscn")
 var spots: Array[Spot] = []
 var marked_spots: Array[Spot] = []
 

@@ -6,7 +6,7 @@ class_name Payouts extends Control
 
 var rows: Array[PayoutsRow]
 
-@onready var prize_scene: PackedScene = load("res://components/payouts/payouts_row.tscn")
+@onready var prize_scene: PackedScene = load("res://components/payouts/payouts_row/payouts_row.tscn")
 
 func _ready() -> void:
 	var children: Array[Node] = prizes_container.get_children()

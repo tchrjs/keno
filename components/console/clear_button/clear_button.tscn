@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b5rypxtqb8fv0"]
 
-[ext_resource type="Script" uid="uid://b426eeepwsw4k" path="res://components/console/buttons/clear_button.gd" id="1_bnds4"]
+[ext_resource type="Script" uid="uid://b426eeepwsw4k" path="res://components/console/clear_button/clear_button.gd" id="1_bnds4"]
 
 [node name="ClearButton" type="Button" node_paths=PackedStringArray("board")]
 custom_minimum_size = Vector2(200, 48)

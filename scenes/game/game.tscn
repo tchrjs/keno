@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=15 format=3 uid="uid://l577flp108ri"]
 
 [ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://components/states/idle.gd" id="3_5i0tg"]
@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://baccnd2iwlit" path="res://components/info_bar/info_bar.tscn" id="6_2a8rs"]
 [ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/console/console.gd" id="6_5i0tg"]
 [ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://components/states/lose.gd" id="6_ftsea"]
-[ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/buttons/clear_button.tscn" id="7_87uf6"]
-[ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/buttons/play_button.tscn" id="7_bdhmt"]
-[ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/credits_meter/credit_meter.tscn" id="7_otnwt"]
+[ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/clear_button/clear_button.tscn" id="7_87uf6"]
+[ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/play_button/play_button.tscn" id="7_bdhmt"]
+[ext_resource type="PackedScene" uid="uid://br48od44kpm34" path="res://components/console/bet_meter/bet_meter.tscn" id="7_ftsea"]
+[ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/console/credits_meter/credit_meter.tscn" id="7_otnwt"]
 [ext_resource type="PackedScene" uid="uid://dm52x1wp8a6h8" path="res://components/payouts/payouts.tscn" id="13_vaxfo"]
 
 [node name="Game" type="Node" node_paths=PackedStringArray("state_machine")]
@@ -48,15 +49,53 @@ script = ExtResource("6_ftsea")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 metadata/_custom_type_script = "uid://cb780ahycl4pk"
 
-[node name="MeterContainer" type="MarginContainer" parent="."]
+[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_5i0tg")
+state_machine = NodePath("../StateMachine")
+board = NodePath("../Board")
+clear_button = NodePath("KenoButtonsContainer/ClearButton")
+play_button = NodePath("KenoButtonsContainer/PlayButton")
+
+[node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 38
+theme_override_constants/margin_right = 38
+theme_override_constants/margin_bottom = 38
+
+[node name="ClearButton" parent="Console/KenoButtonsContainer" instance=ExtResource("7_87uf6")]
+layout_mode = 2
+
+[node name="PlayButton" parent="Console/KenoButtonsContainer" instance=ExtResource("7_bdhmt")]
+layout_mode = 2
+
+[node name="MeterContainer" type="MarginContainer" parent="Console"]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_bottom = 10.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 38
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 38
 
-[node name="CreditMeter" parent="MeterContainer" instance=ExtResource("7_otnwt")]
+[node name="BetMeter" parent="Console/MeterContainer" instance=ExtResource("7_ftsea")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CreditMeter" parent="Console/MeterContainer" instance=ExtResource("7_otnwt")]
 layout_mode = 2
 
 [node name="Board" type="Control" parent="." node_paths=PackedStringArray("top_grid_container", "bottom_grid_container")]
@@ -103,39 +142,6 @@ board = NodePath("../..")
 layout_mode = 2
 columns = 10
 
-[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button")]
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("6_5i0tg")
-state_machine = NodePath("../StateMachine")
-board = NodePath("../Board")
-clear_button = NodePath("MarginContainer/ClearButton")
-play_button = NodePath("MarginContainer/PlayButton")
-
-[node name="MarginContainer" type="MarginContainer" parent="Console"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -91.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 38
-theme_override_constants/margin_right = 38
-theme_override_constants/margin_bottom = 38
-
-[node name="ClearButton" parent="Console/MarginContainer" instance=ExtResource("7_87uf6")]
-layout_mode = 2
-
-[node name="PlayButton" parent="Console/MarginContainer" instance=ExtResource("7_bdhmt")]
-layout_mode = 2
-
 [node name="PayoutsContainer" type="MarginContainer" parent="."]
 anchors_preset = 4
 anchor_top = 0.5
@@ -148,6 +154,6 @@ theme_override_constants/margin_left = 75
 layout_mode = 2
 board = NodePath("../../Board")
 
-[connection signal="pressed" from="Console/MarginContainer/ClearButton" to="Board" method="clear"]
-[connection signal="play_pressed" from="Console/MarginContainer/PlayButton" to="StateMachine/Idle" method="play"]
-[connection signal="stop_pressed" from="Console/MarginContainer/PlayButton" to="StateMachine/Play" method="interrupt"]
+[connection signal="pressed" from="Console/KenoButtonsContainer/ClearButton" to="Board" method="clear"]
+[connection signal="play_pressed" from="Console/KenoButtonsContainer/PlayButton" to="StateMachine/Idle" method="play"]
+[connection signal="stop_pressed" from="Console/KenoButtonsContainer/PlayButton" to="StateMachine/Play" method="interrupt"]

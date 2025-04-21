@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cyuuj2ib3qx7p"]
 
-[ext_resource type="Script" uid="uid://dr03m5nmtf45r" path="res://components/credits_meter/credits_meter.gd" id="1_4cuxr"]
+[ext_resource type="Script" uid="uid://dr03m5nmtf45r" path="res://components/console/credits_meter/credits_meter.gd" id="1_4cuxr"]
 
 [node name="CreditMeter" type="Control" node_paths=PackedStringArray("credits")]
 layout_mode = 3
