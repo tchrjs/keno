@@ -10,7 +10,7 @@ var rows: Array[PayoutsRow]
 
 func _ready() -> void:
 	var children: Array[Node] = prizes_container.get_children()
-	for i in range(1, children.size()):
+	for i: int in range(1, children.size()):
 		if children[i] is PayoutsRow:
 			rows.append(children[i])
 	board.connect("marked_spots_updated", update)
@@ -20,8 +20,8 @@ func update() -> void:
 
 	clear()
 	var row_counter: int = 0
-	for i in range(payouts.size() - 1, -1, -1):
-		var win = payouts[i]
+	for i: int in range(payouts.size() - 1, -1, -1):
+		var win: int = payouts[i]
 		if win == 0:
 			continue
 		var row: PayoutsRow = rows[row_counter]
@@ -31,15 +31,15 @@ func update() -> void:
 
 func clear() -> void:
 	toggle_highlight(false)
-	for row in rows:
+	for row: PayoutsRow in rows:
 		row.clear()
 
 func reset() -> void:
 	toggle_highlight(false)
 
 func set_highlight() -> void:
-	var matched_row = null
-	for row in rows:
+	var matched_row: PayoutsRow = null
+	for row: PayoutsRow in rows:
 		if row.hits == MathEngine.matched_count:
 			matched_row = row
 			break

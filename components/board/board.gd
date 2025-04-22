@@ -11,7 +11,7 @@ var marked_spots: Array[Spot] = []
 
 # Add spots onto grid container.
 func _ready() -> void:
-	for i in range(1, MathEngine.pool_size + 1):
+	for i: int in range(1, MathEngine.pool_size + 1):
 		var spot: Spot = spot_scene.instantiate()
 		spot.set_number(i)
 		spot.connect("mark_toggled", _on_spot_mark_toggled)
@@ -25,16 +25,16 @@ func _ready() -> void:
 # Clear all marked spots.
 func clear() -> void:
 	reset()
-	for spot in marked_spots.duplicate():
+	for spot: Spot in marked_spots.duplicate():
 		_on_spot_mark_toggled(spot, false)
 
 # reset spots.
 func reset() -> void:
-	for spot in spots:
+	for spot: Spot in spots:
 		spot.reset()
 
 func toggle(toggled_on: bool) -> void:
-	for spot in spots:
+	for spot: Spot in spots:
 		spot.disabled = !toggled_on
 
 # Update marked spots.

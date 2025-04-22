@@ -12,7 +12,7 @@ func enter() -> void:
 	payouts.reset()
 	info_bar.update()
 	var picked_numbers: Array[int] = []
-	for spot in board.marked_spots:
+	for spot: Spot in board.marked_spots:
 		picked_numbers.append(spot.number)
 	MathEngine.draw(picked_numbers)
 	await _draw()
@@ -30,7 +30,7 @@ func interrupt() -> void:
 
 func _draw() -> void:
 	tween = create_tween()
-	for drawn_number in MathEngine.drawn_numbers:
+	for drawn_number: int in MathEngine.drawn_numbers:
 		var spot: Spot = board.spots[drawn_number - 1]
 		if MathEngine.picked_numbers.has(drawn_number):
 			tween.tween_callback(spot.toggle_hit.bind(true)).set_delay(0.25)

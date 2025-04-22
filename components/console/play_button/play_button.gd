@@ -17,7 +17,7 @@ func _toggled_idle(_toggled_on: bool) -> void:
 func _toggled_play(_toggled_on: bool) -> void:
 	disabled = !_toggled_on
 
-func _pressed():
+func _pressed() -> void:
 	toggle(false)
 	if is_stop:
 		emit_signal("stop_pressed")

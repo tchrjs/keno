@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 Platform="*res://autoload/platform/platform.tscn"
 MathEngine="*res://autoload/math_engine/math_engine.tscn"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+gdscript/warnings/inferred_declaration=2
+
 [display]
 
 window/size/viewport_width=1920

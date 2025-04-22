@@ -4,7 +4,7 @@ class_name InfoBar extends Control
 @export var board: Board
 @export var label: Label
 
-func _ready():
+func _ready() -> void:
 	board.connect("marked_spots_updated", update)
 	idle()
 

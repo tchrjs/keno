@@ -8,7 +8,7 @@ class_name PayoutsRow extends Control
 var hits: int
 var win: int
 
-func _ready():
+func _ready() -> void:
 	hits_label.text = initial_hits_text
 	win_label.text = initial_win_text
 

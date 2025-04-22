@@ -22,8 +22,8 @@ func get_draw(picked_numbers: Array[int], bet_level: int) -> Result:
 	# Find credits won.
 	result.picked_count = picked_numbers.size()
 	result.matched_count = 0
-	for item in result.drawn_numbers:
-		if item in result.picked_numbers:
+	for number: int in result.drawn_numbers:
+		if number in result.picked_numbers:
 			result.matched_count += 1
 	result.credits_won = paytable.data["Payouts"][result.picked_count][result.matched_count]
 	return result
@@ -39,12 +39,12 @@ func get_payouts() -> Array:
 
 func _reset() -> void:
 	unpicked_numbers = []
-	for i in range(1, MathEngine.pool_size + 1):
+	for i: int in range(1, MathEngine.pool_size + 1):
 		unpicked_numbers.append(i)
 
 func _draw(draw_number: int) -> Array[int]:
 	var drawn_numbers: Array[int] = []
-	for i in MathEngine.draw_number:
+	for i: int in MathEngine.draw_number:
 		var picked_index: int = randi_range(0, unpicked_numbers.size() - 1)
 		drawn_numbers.append(unpicked_numbers[picked_index])
 		unpicked_numbers.remove_at(picked_index)
