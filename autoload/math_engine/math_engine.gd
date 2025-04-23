@@ -9,7 +9,9 @@ extends Node
 @export var pool_size: int = 80
 
 var bet_levels: Array
-var payouts: Array
+var current_bet_level: int = 1
+var payouts: Dictionary
+
 
 var drawn_numbers: Array[int]
 var picked_numbers: Array[int]
@@ -22,7 +24,7 @@ func _ready() -> void:
 	payouts = keno_engine.get_payouts()
 
 func draw(_picked_numbers: Array[int]) -> void:
-	var result: Result = keno_engine.get_draw(_picked_numbers, 1)
+	var result: Result = keno_engine.get_draw(_picked_numbers, current_bet_level)
 	drawn_numbers = result.drawn_numbers
 	picked_numbers = result.picked_numbers
 	credits_won = result.credits_won
@@ -36,6 +38,21 @@ func draw(_picked_numbers: Array[int]) -> void:
 	print("Picked Count: " + str(picked_count))
 	print("Matched Count: " + str(matched_count))
 	print("")
+
+func increment_bet_level() -> void:
+	if current_bet_level + 1 <= MathEngine.bet_levels.size():
+		current_bet_level = current_bet_level + 1
+	else:
+		current_bet_level = 1
+
+func decrement_bet_level() -> void:
+	if current_bet_level - 1 == 0:
+		current_bet_level = MathEngine.bet_levels.size()
+	else:
+		current_bet_level = current_bet_level - 1
+
+func get_current_bet_credits() -> int:
+	return int(bet_levels[current_bet_level - 1])
 
 func draw_completed() -> void:
 	keno_engine.draw_completed()

@@ -25,7 +25,7 @@ func get_draw(picked_numbers: Array[int], bet_level: int) -> Result:
 	for number: int in result.drawn_numbers:
 		if number in result.picked_numbers:
 			result.matched_count += 1
-	result.credits_won = paytable.data["Payouts"][result.picked_count][result.matched_count]
+	result.credits_won = paytable.data["Payouts"][str(bet_level)][result.picked_count][result.matched_count]
 	return result
 
 func draw_completed() -> void:
@@ -34,7 +34,7 @@ func draw_completed() -> void:
 func get_bet_levels() -> Array:
 	return paytable.data["BetLevels"]
 
-func get_payouts() -> Array:
+func get_payouts() -> Dictionary:
 	return paytable.data["Payouts"]
 
 func _reset() -> void:

@@ -19,6 +19,8 @@ func update() -> void:
 func idle() -> void:
 	if board.marked_spots.size() < MathEngine.min_pick:
 		label.text = "Pick " + str(MathEngine.min_pick) + " or More Spots to Draw!"
+	elif Platform.credits < MathEngine.get_current_bet_credits():
+		label.text = "Change Bet or Insert Credits"
 	else:
 		label.text = "Change Spots or Touch Draw!"
 

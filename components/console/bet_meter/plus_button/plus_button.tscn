@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpqimbckn2ugm"]
+
+[ext_resource type="Script" uid="uid://fx0ls615hbfm" path="res://components/console/bet_meter/plus_button/plus_button.gd" id="1_22ujs"]
+
+[node name="PlusButton" type="Button"]
+custom_minimum_size = Vector2(45, 45)
+script = ExtResource("1_22ujs")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1

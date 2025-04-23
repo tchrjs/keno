@@ -16,7 +16,7 @@ func _ready() -> void:
 	board.connect("marked_spots_updated", update)
 
 func update() -> void:
-	var payouts: Array = MathEngine.payouts[board.marked_spots.size()]
+	var payouts: Array = MathEngine.payouts[str(MathEngine.current_bet_level)][board.marked_spots.size()]
 
 	clear()
 	var row_counter: int = 0

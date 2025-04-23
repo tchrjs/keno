@@ -15,9 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/console/credits_meter/credit_meter.tscn" id="7_otnwt"]
 [ext_resource type="PackedScene" uid="uid://dm52x1wp8a6h8" path="res://components/payouts/payouts.tscn" id="13_vaxfo"]
 
-[node name="Game" type="Node" node_paths=PackedStringArray("state_machine")]
+[node name="Game" type="Node" node_paths=PackedStringArray("state_machine", "board", "payouts", "console", "info_bar")]
 script = ExtResource("1_7h61r")
 state_machine = NodePath("StateMachine")
+board = NodePath("Board")
+payouts = NodePath("PayoutsContainer/Payouts")
+console = NodePath("Console")
+info_bar = NodePath("Board/VBoxContainer/InfoBar")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_kelw5")
@@ -30,12 +34,11 @@ board = NodePath("../../Board")
 console = NodePath("../../Console")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
-[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "info_bar", "console", "payouts")]
+[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "console", "bet_meter")]
 script = ExtResource("4_5i0tg")
 board = NodePath("../../Board")
-info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 console = NodePath("../../Console")
-payouts = NodePath("../../PayoutsContainer/Payouts")
+bet_meter = NodePath("../../Console/MeterContainer/BetMeter")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
 [node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
@@ -49,7 +52,7 @@ script = ExtResource("6_ftsea")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 metadata/_custom_type_script = "uid://cb780ahycl4pk"
 
-[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button")]
+[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button", "bet_meter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,6 +64,7 @@ state_machine = NodePath("../StateMachine")
 board = NodePath("../Board")
 clear_button = NodePath("KenoButtonsContainer/ClearButton")
 play_button = NodePath("KenoButtonsContainer/PlayButton")
+bet_meter = NodePath("MeterContainer/BetMeter")
 
 [node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
 layout_mode = 1
@@ -93,7 +97,7 @@ theme_override_constants/margin_right = 38
 
 [node name="BetMeter" parent="Console/MeterContainer" instance=ExtResource("7_ftsea")]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 1
 
 [node name="CreditMeter" parent="Console/MeterContainer" instance=ExtResource("7_otnwt")]
 layout_mode = 2

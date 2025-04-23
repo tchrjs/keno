@@ -1,20 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://br48od44kpm34"]
+[gd_scene load_steps=4 format=3 uid="uid://br48od44kpm34"]
 
 [ext_resource type="Script" uid="uid://vbkejbpoggnt" path="res://components/console/bet_meter/bet_meter.gd" id="1_uojux"]
+[ext_resource type="PackedScene" uid="uid://chopdiom1e1xx" path="res://components/console/bet_meter/minus_button/minus_button.tscn" id="2_vaxb6"]
+[ext_resource type="PackedScene" uid="uid://dpqimbckn2ugm" path="res://components/console/bet_meter/plus_button/plus_button.tscn" id="3_cnejs"]
 
-[node name="BetMeter" type="Control" node_paths=PackedStringArray("credits")]
+[node name="BetMeter" type="Control" node_paths=PackedStringArray("credits", "minus_button", "plus_button")]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 script = ExtResource("1_uojux")
 credits = NodePath("HBoxContainer/Credits")
+minus_button = NodePath("HBoxContainer/MinusButton")
+plus_button = NodePath("HBoxContainer/PlusButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 offset_right = 80.0
 offset_bottom = 45.0
 theme_override_constants/separation = 10
+
+[node name="MinusButton" parent="HBoxContainer" instance=ExtResource("2_vaxb6")]
+layout_mode = 2
 
 [node name="BetLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
@@ -29,3 +36,9 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlusButton" parent="HBoxContainer" instance=ExtResource("3_cnejs")]
+layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/MinusButton" to="." method="decrement_bet_level"]
+[connection signal="pressed" from="HBoxContainer/PlusButton" to="." method="increment_bet_level"]
