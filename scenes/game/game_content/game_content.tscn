@@ -86,11 +86,12 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="MenuButton" type="Button" parent="Console/TopBarContainer"]
-custom_minimum_size = Vector2(53, 53)
+custom_minimum_size = Vector2(200, 48)
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "☰"
+text = "Menu"
 
 [node name="Label" type="Label" parent="Console/TopBarContainer"]
 layout_mode = 2
