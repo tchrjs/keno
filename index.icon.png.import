@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csg6qe5g0pjcb"
-path="res://.godot/imported/keno.icon.png-648e0e52c8e2c6069047e5d67db42517.ctex"
+uid="uid://dcuuey5i0yg53"
+path="res://.godot/imported/index.icon.png-5665fad188e88d1e882500a4376bfe02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://keno.icon.png"
-dest_files=["res://.godot/imported/keno.icon.png-648e0e52c8e2c6069047e5d67db42517.ctex"]
+source_file="res://index.icon.png"
+dest_files=["res://.godot/imported/index.icon.png-5665fad188e88d1e882500a4376bfe02.ctex"]
 
 [params]
 
