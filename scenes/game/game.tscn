@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b33pu0hs7s2fc"]
+[gd_scene load_steps=4 format=3 uid="uid://b33pu0hs7s2fc"]
 
 [ext_resource type="Script" uid="uid://c8r2fpxa30at3" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://l577flp108ri" path="res://scenes/game/game_content/game_content.tscn" id="2_7h61r"]
 [ext_resource type="PackedScene" uid="uid://yllmcm37jkja" path="res://scenes/game/pause_menu/pause_menu.tscn" id="3_0sr1o"]
-[ext_resource type="Script" uid="uid://iagdalyaa23p" path="res://scenes/game/pause_menu/pause_menu.gd" id="4_kelw5"]
 
 [node name="Game" type="Node" node_paths=PackedStringArray("game_content", "pause_menu")]
 process_mode = 3
@@ -13,6 +12,6 @@ pause_menu = NodePath("PauseMenu")
 
 [node name="GameContent" parent="." instance=ExtResource("2_7h61r")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("3_0sr1o")]
+[node name="PauseMenu" parent="." node_paths=PackedStringArray("game") instance=ExtResource("3_0sr1o")]
 visible = false
-script = ExtResource("4_kelw5")
+game = NodePath("..")

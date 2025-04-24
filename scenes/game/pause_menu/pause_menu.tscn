@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://yllmcm37jkja"]
+[gd_scene load_steps=4 format=3 uid="uid://yllmcm37jkja"]
+
+[ext_resource type="Script" uid="uid://iagdalyaa23p" path="res://scenes/game/pause_menu/pause_menu.gd" id="1_5742t"]
+[ext_resource type="Script" uid="uid://drt7p2ijqbie1" path="res://scenes/game/pause_menu/add_credit_option.gd" id="2_neywp"]
 
 [sub_resource type="Theme" id="Theme_mp3j5"]
 default_font_size = 32
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("resume_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -11,6 +14,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5742t")
+resume_button = NodePath("Menu/MarginContainer/MarginContainer/ResumeButton")
 
 [node name="Overlay" type="ColorRect" parent="."]
 layout_mode = 1
@@ -98,12 +103,15 @@ text = "Pause Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/MarginContainer/VBoxContainer"]
+[node name="AddCreditOption" type="HBoxContainer" parent="Menu/MarginContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("option_button", "button")]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
+script = ExtResource("2_neywp")
+option_button = NodePath("OptionButton")
+button = NodePath("AddCreditButton")
 
-[node name="OptionButton" type="OptionButton" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/AddCreditOption"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_mp3j5")
@@ -121,13 +129,22 @@ popup/item_2/id = 2
 popup/item_3/text = "1000"
 popup/item_3/id = 3
 
-[node name="Label2" type="Label" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/AddCreditOption"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Credits"
 
-[node name="Button" type="Button" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AddCreditButton" type="Button" parent="Menu/MarginContainer/MarginContainer/VBoxContainer/AddCreditOption"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Add"
+
+[node name="ResumeButton" type="Button" parent="Menu/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 32
+text = "Resume"
+
+[connection signal="pressed" from="Menu/MarginContainer/MarginContainer/VBoxContainer/AddCreditOption/AddCreditButton" to="Menu/MarginContainer/MarginContainer/VBoxContainer/AddCreditOption" method="_on_add_credit_button_pressed"]
+[connection signal="pressed" from="Menu/MarginContainer/MarginContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

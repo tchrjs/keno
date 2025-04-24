@@ -3,6 +3,7 @@ class_name Console extends Control
 @export var state_machine: StateMachine
 @export var board: Board
 
+@export var menu_button: Button
 @export var clear_button: ClearButton
 @export var play_button: PlayButton
 @export var bet_meter: BetMeter

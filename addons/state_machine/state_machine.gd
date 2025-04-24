@@ -15,6 +15,12 @@ func enter_initial_state() -> void:
 	if initial_state:
 		_enter_state(initial_state)
 
+func  get_current_state_name() -> String:
+	if current_state:
+		return current_state.name.to_lower()
+	else:
+		return ""
+
 func _process(delta) -> void:
 	if current_state:
 		current_state.update(delta)

@@ -9,8 +9,8 @@ func _ready() -> void:
 	idle()
 
 func update() -> void:
-	if state_machine and state_machine.current_state:
-		match state_machine.current_state.name.to_lower():
+	if state_machine:
+		match state_machine.get_current_state_name():
 			"idle": idle()
 			"play": play()
 			"win": win()

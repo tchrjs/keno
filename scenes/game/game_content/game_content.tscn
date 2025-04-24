@@ -54,7 +54,7 @@ script = ExtResource("6_1swlr")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 metadata/_custom_type_script = "uid://cb780ahycl4pk"
 
-[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button", "bet_meter")]
+[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "menu_button", "clear_button", "play_button", "bet_meter")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,9 +64,25 @@ grow_vertical = 2
 script = ExtResource("7_t2f42")
 state_machine = NodePath("../StateMachine")
 board = NodePath("../Board")
+menu_button = NodePath("TopBarContainer/MenuButton")
 clear_button = NodePath("KenoButtonsContainer/HBoxContainer/ClearButton")
 play_button = NodePath("KenoButtonsContainer/HBoxContainer/PlayButton")
 bet_meter = NodePath("KenoButtonsContainer/HBoxContainer/BetMeter")
+
+[node name="TopBarContainer" type="MarginContainer" parent="Console"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MenuButton" type="Button" parent="Console/TopBarContainer"]
+custom_minimum_size = Vector2(53, 53)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "☰"
 
 [node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
 layout_mode = 1
