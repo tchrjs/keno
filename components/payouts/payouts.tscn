@@ -28,7 +28,6 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Header" type="Control" parent="VBoxContainer"]
-z_index = 1
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_vertical = 2

@@ -1,0 +1,174 @@
+[gd_scene load_steps=16 format=3 uid="uid://l577flp108ri"]
+
+[ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game_content/game_content.gd" id="1_42r56"]
+[ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://addons/state_machine/state_machine.gd" id="2_yi11p"]
+[ext_resource type="Script" uid="uid://d4l762fs6cxyv" path="res://scenes/game/game_content/game_states/idle.gd" id="3_kqvmc"]
+[ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://scenes/game/game_content/game_states/play.gd" id="4_5n3ce"]
+[ext_resource type="Script" uid="uid://dllqec2c2ybot" path="res://scenes/game/game_content/game_states/win.gd" id="5_db6qd"]
+[ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://scenes/game/game_content/game_states/lose.gd" id="6_1swlr"]
+[ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/console/console.gd" id="7_t2f42"]
+[ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/clear_button/clear_button.tscn" id="8_fx13t"]
+[ext_resource type="PackedScene" uid="uid://br48od44kpm34" path="res://components/console/bet_meter/bet_meter.tscn" id="9_cvgym"]
+[ext_resource type="PackedScene" uid="uid://cyuuj2ib3qx7p" path="res://components/console/credits_meter/credit_meter.tscn" id="10_aahy7"]
+[ext_resource type="PackedScene" uid="uid://ggshpf28pbuc" path="res://components/console/play_button/play_button.tscn" id="11_45610"]
+[ext_resource type="Script" uid="uid://ckqysstys77uf" path="res://components/board/board.gd" id="12_4pyv7"]
+[ext_resource type="PackedScene" uid="uid://baccnd2iwlit" path="res://components/info_bar/info_bar.tscn" id="13_oeplq"]
+[ext_resource type="PackedScene" uid="uid://dm52x1wp8a6h8" path="res://components/payouts/payouts.tscn" id="14_2pl1v"]
+[ext_resource type="PackedScene" uid="uid://bp4f8nqo8fkdr" path="res://components/hit_counter/hit_counter.tscn" id="15_jyrh8"]
+
+[node name="GameContent" type="Node" node_paths=PackedStringArray("state_machine", "board", "payouts", "console", "info_bar")]
+process_mode = 1
+script = ExtResource("1_42r56")
+state_machine = NodePath("StateMachine")
+board = NodePath("Board")
+payouts = NodePath("MarginContainer/HBoxContainer/Payouts")
+console = NodePath("Console")
+info_bar = NodePath("Board/VBoxContainer/InfoBar")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_yi11p")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://brwmd6hywtyyt"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "console")]
+script = ExtResource("3_kqvmc")
+board = NodePath("../../Board")
+console = NodePath("../../Console")
+metadata/_custom_type_script = "uid://lyh78ppnftnq"
+
+[node name="Play" type="Node" parent="StateMachine" node_paths=PackedStringArray("board", "console", "bet_meter")]
+script = ExtResource("4_5n3ce")
+board = NodePath("../../Board")
+console = NodePath("../../Console")
+bet_meter = NodePath("../../Console/KenoButtonsContainer/HBoxContainer/BetMeter")
+metadata/_custom_type_script = "uid://lyh78ppnftnq"
+
+[node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
+script = ExtResource("5_db6qd")
+info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
+payouts = NodePath("../../MarginContainer/HBoxContainer/Payouts")
+metadata/_custom_type_script = "uid://dllqec2c2ybot"
+
+[node name="Lose" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar")]
+script = ExtResource("6_1swlr")
+info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
+metadata/_custom_type_script = "uid://cb780ahycl4pk"
+
+[node name="Console" type="Control" parent="." node_paths=PackedStringArray("state_machine", "board", "clear_button", "play_button", "bet_meter")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_t2f42")
+state_machine = NodePath("../StateMachine")
+board = NodePath("../Board")
+clear_button = NodePath("KenoButtonsContainer/HBoxContainer/ClearButton")
+play_button = NodePath("KenoButtonsContainer/HBoxContainer/PlayButton")
+bet_meter = NodePath("KenoButtonsContainer/HBoxContainer/BetMeter")
+
+[node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 38
+theme_override_constants/margin_right = 38
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Console/KenoButtonsContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ClearButton" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("8_fx13t")]
+layout_mode = 2
+
+[node name="BetMeter" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("9_cvgym")]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="CreditMeter" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("10_aahy7")]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="PlayButton" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("11_45610")]
+layout_mode = 2
+
+[node name="Board" type="Control" parent="." node_paths=PackedStringArray("top_grid_container", "bottom_grid_container")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_right = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_4pyv7")
+top_grid_container = NodePath("VBoxContainer/TopGridContainer")
+bottom_grid_container = NodePath("VBoxContainer/BottomGridContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Board"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="TopGridContainer" type="GridContainer" parent="Board/VBoxContainer"]
+layout_mode = 2
+columns = 10
+
+[node name="InfoBar" parent="Board/VBoxContainer" node_paths=PackedStringArray("state_machine", "board") instance=ExtResource("13_oeplq")]
+layout_mode = 2
+state_machine = NodePath("../../../StateMachine")
+board = NodePath("../..")
+
+[node name="BottomGridContainer" type="GridContainer" parent="Board/VBoxContainer"]
+layout_mode = 2
+columns = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_right = 375.0
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 75
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Payouts" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("board") instance=ExtResource("14_2pl1v")]
+process_mode = 1
+layout_mode = 2
+board = NodePath("../../../Board")
+
+[node name="HitCounter" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("board") instance=ExtResource("15_jyrh8")]
+layout_mode = 2
+board = NodePath("../../../Board")
+
+[connection signal="pressed" from="Console/KenoButtonsContainer/HBoxContainer/ClearButton" to="Board" method="clear"]
+[connection signal="play_pressed" from="Console/KenoButtonsContainer/HBoxContainer/PlayButton" to="StateMachine/Idle" method="play"]
+[connection signal="stop_pressed" from="Console/KenoButtonsContainer/HBoxContainer/PlayButton" to="StateMachine/Play" method="interrupt"]
