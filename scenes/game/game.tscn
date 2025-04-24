@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://lyh78ppnftnq"
 script = ExtResource("4_5i0tg")
 board = NodePath("../../Board")
 console = NodePath("../../Console")
-bet_meter = NodePath("../../Console/MeterContainer/BetMeter")
+bet_meter = NodePath("../../Console/KenoButtonsContainer/HBoxContainer/BetMeter")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
 [node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
@@ -63,9 +63,9 @@ grow_vertical = 2
 script = ExtResource("6_5i0tg")
 state_machine = NodePath("../StateMachine")
 board = NodePath("../Board")
-clear_button = NodePath("KenoButtonsContainer/ClearButton")
-play_button = NodePath("KenoButtonsContainer/PlayButton")
-bet_meter = NodePath("MeterContainer/BetMeter")
+clear_button = NodePath("KenoButtonsContainer/HBoxContainer/ClearButton")
+play_button = NodePath("KenoButtonsContainer/HBoxContainer/PlayButton")
+bet_meter = NodePath("KenoButtonsContainer/HBoxContainer/BetMeter")
 
 [node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
 layout_mode = 1
@@ -78,29 +78,26 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_left = 38
 theme_override_constants/margin_right = 38
-theme_override_constants/margin_bottom = 38
+theme_override_constants/margin_bottom = 10
 
-[node name="ClearButton" parent="Console/KenoButtonsContainer" instance=ExtResource("7_87uf6")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Console/KenoButtonsContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="ClearButton" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("7_87uf6")]
 layout_mode = 2
 
-[node name="PlayButton" parent="Console/KenoButtonsContainer" instance=ExtResource("7_bdhmt")]
+[node name="BetMeter" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("7_ftsea")]
 layout_mode = 2
+size_flags_horizontal = 6
 
-[node name="MeterContainer" type="MarginContainer" parent="Console"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 10.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 38
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 38
-
-[node name="BetMeter" parent="Console/MeterContainer" instance=ExtResource("7_ftsea")]
+[node name="CreditMeter" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("7_otnwt")]
 layout_mode = 2
-size_flags_horizontal = 1
+size_flags_horizontal = 6
 
-[node name="CreditMeter" parent="Console/MeterContainer" instance=ExtResource("7_otnwt")]
+[node name="PlayButton" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("7_bdhmt")]
 layout_mode = 2
 
 [node name="Board" type="Control" parent="." node_paths=PackedStringArray("top_grid_container", "bottom_grid_container")]
@@ -170,6 +167,6 @@ board = NodePath("../../../Board")
 layout_mode = 2
 board = NodePath("../../../Board")
 
-[connection signal="pressed" from="Console/KenoButtonsContainer/ClearButton" to="Board" method="clear"]
-[connection signal="play_pressed" from="Console/KenoButtonsContainer/PlayButton" to="StateMachine/Idle" method="play"]
-[connection signal="stop_pressed" from="Console/KenoButtonsContainer/PlayButton" to="StateMachine/Play" method="interrupt"]
+[connection signal="pressed" from="Console/KenoButtonsContainer/HBoxContainer/ClearButton" to="Board" method="clear"]
+[connection signal="play_pressed" from="Console/KenoButtonsContainer/HBoxContainer/PlayButton" to="StateMachine/Idle" method="play"]
+[connection signal="stop_pressed" from="Console/KenoButtonsContainer/HBoxContainer/PlayButton" to="StateMachine/Play" method="interrupt"]
