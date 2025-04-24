@@ -3,6 +3,7 @@ class_name Board extends Control
 signal marked_spots_updated
 signal hit_count_updated(hit_count: int)
 
+@export var play_state: Play
 @export var top_grid_container: GridContainer
 @export var bottom_grid_container: GridContainer
 
@@ -19,6 +20,7 @@ func _ready() -> void:
 		spot.set_number(i)
 		spot.connect("mark_toggled", _on_spot_mark_toggled)
 		spot.connect("hit_toggled", _on_hit_toggled)
+		spot.play_state = play_state
 		spots.append(spot)
 		@warning_ignore("integer_division")
 		if i <= MathEngine.pool_size / 2:

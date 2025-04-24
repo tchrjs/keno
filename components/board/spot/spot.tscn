@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cul5k3bkbb27k"]
+[gd_scene load_steps=7 format=3 uid="uid://cul5k3bkbb27k"]
 
-[ext_resource type="Texture2D" uid="uid://cktpg8tcsr40h" path="res://assets/base_spot.png" id="1_c2pb2"]
+[ext_resource type="Texture2D" uid="uid://cktpg8tcsr40h" path="res://assets/visual/base_spot.png" id="1_c2pb2"]
 [ext_resource type="Script" uid="uid://bixqcyu82nxfj" path="res://components/board/spot/spot.gd" id="1_xdq5v"]
-[ext_resource type="Texture2D" uid="uid://hvnk6u7owe1" path="res://assets/base_mark_spot.png" id="3_vxcsr"]
-[ext_resource type="Texture2D" uid="uid://dt76md64v7ao5" path="res://assets/base_hit_spot.png" id="4_xee4v"]
+[ext_resource type="AudioStream" uid="uid://bbs1dxg63ciql" path="res://assets/audio/hit.wav" id="2_ufqvg"]
+[ext_resource type="AudioStream" uid="uid://sbk051mdvdov" path="res://assets/audio/miss.wav" id="3_7od7s"]
+[ext_resource type="Texture2D" uid="uid://hvnk6u7owe1" path="res://assets/visual/base_mark_spot.png" id="3_vxcsr"]
+[ext_resource type="Texture2D" uid="uid://dt76md64v7ao5" path="res://assets/visual/base_hit_spot.png" id="4_xee4v"]
 
-[node name="Spot" type="Button" node_paths=PackedStringArray("background", "mark", "label", "hit", "overlay")]
+[node name="Spot" type="Button" node_paths=PackedStringArray("background", "mark", "label", "hit", "overlay", "hit_sound", "miss_sound")]
 custom_minimum_size = Vector2(96, 88)
 offset_right = 104.0
 offset_bottom = 96.0
@@ -18,6 +20,14 @@ mark = NodePath("Mark")
 label = NodePath("Label")
 hit = NodePath("Hit")
 overlay = NodePath("Overlay")
+hit_sound = NodePath("HitSound")
+miss_sound = NodePath("MissSound")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ufqvg")
+
+[node name="MissSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7od7s")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1

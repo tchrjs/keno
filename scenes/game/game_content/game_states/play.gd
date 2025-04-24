@@ -5,8 +5,10 @@ class_name Play extends State
 @export var bet_meter: BetMeter
 
 var tween: Tween
+var has_interrupted: bool = false
 
 func enter() -> void:
+	has_interrupted = false
 	var picked_numbers: Array[int] = []
 	for spot: Spot in board.marked_spots:
 		picked_numbers.append(spot.number)
@@ -21,6 +23,7 @@ func exit() -> void:
 	pass
 
 func interrupt() -> void:
+	has_interrupted = true
 	if tween:
 		tween.custom_step(30)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://l577flp108ri"]
+[gd_scene load_steps=17 format=3 uid="uid://l577flp108ri"]
 
 [ext_resource type="Script" uid="uid://kxnas1ki4fwo" path="res://scenes/game/game_content/game_content.gd" id="1_42r56"]
 [ext_resource type="Script" uid="uid://brwmd6hywtyyt" path="res://addons/state_machine/state_machine.gd" id="2_yi11p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c4lp8iaajefax" path="res://scenes/game/game_content/game_states/play.gd" id="4_5n3ce"]
 [ext_resource type="Script" uid="uid://dllqec2c2ybot" path="res://scenes/game/game_content/game_states/win.gd" id="5_db6qd"]
 [ext_resource type="Script" uid="uid://cb780ahycl4pk" path="res://scenes/game/game_content/game_states/lose.gd" id="6_1swlr"]
+[ext_resource type="AudioStream" uid="uid://b4fvrelhugxp7" path="res://assets/audio/win.wav" id="6_yi11p"]
 [ext_resource type="Script" uid="uid://d0dp8nyoprl7t" path="res://components/console/console.gd" id="7_t2f42"]
 [ext_resource type="PackedScene" uid="uid://b5rypxtqb8fv0" path="res://components/console/clear_button/clear_button.tscn" id="8_fx13t"]
 [ext_resource type="PackedScene" uid="uid://br48od44kpm34" path="res://components/console/bet_meter/bet_meter.tscn" id="9_cvgym"]
@@ -43,11 +44,15 @@ console = NodePath("../../Console")
 bet_meter = NodePath("../../Console/KenoButtonsContainer/HBoxContainer/BetMeter")
 metadata/_custom_type_script = "uid://lyh78ppnftnq"
 
-[node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar", "payouts")]
+[node name="Win" type="Node" parent="StateMachine" node_paths=PackedStringArray("win_audio", "info_bar", "payouts")]
 script = ExtResource("5_db6qd")
+win_audio = NodePath("AudioStreamPlayer")
 info_bar = NodePath("../../Board/VBoxContainer/InfoBar")
 payouts = NodePath("../../MarginContainer/HBoxContainer/Payouts")
 metadata/_custom_type_script = "uid://dllqec2c2ybot"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StateMachine/Win"]
+stream = ExtResource("6_yi11p")
 
 [node name="Lose" type="Node" parent="StateMachine" node_paths=PackedStringArray("info_bar")]
 script = ExtResource("6_1swlr")
@@ -70,9 +75,11 @@ play_button = NodePath("KenoButtonsContainer/HBoxContainer/PlayButton")
 bet_meter = NodePath("KenoButtonsContainer/HBoxContainer/BetMeter")
 
 [node name="TopBarContainer" type="MarginContainer" parent="Console"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 73.0
+grow_horizontal = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -81,8 +88,16 @@ theme_override_constants/margin_bottom = 10
 [node name="MenuButton" type="Button" parent="Console/TopBarContainer"]
 custom_minimum_size = Vector2(53, 53)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "☰"
+
+[node name="Label" type="Label" parent="Console/TopBarContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 64
+text = "KENO"
 
 [node name="KenoButtonsContainer" type="MarginContainer" parent="Console"]
 layout_mode = 1
@@ -117,7 +132,7 @@ size_flags_horizontal = 6
 [node name="PlayButton" parent="Console/KenoButtonsContainer/HBoxContainer" instance=ExtResource("11_45610")]
 layout_mode = 2
 
-[node name="Board" type="Control" parent="." node_paths=PackedStringArray("top_grid_container", "bottom_grid_container")]
+[node name="Board" type="Control" parent="." node_paths=PackedStringArray("play_state", "top_grid_container", "bottom_grid_container")]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,6 +144,7 @@ offset_right = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_4pyv7")
+play_state = NodePath("../StateMachine/Play")
 top_grid_container = NodePath("VBoxContainer/TopGridContainer")
 bottom_grid_container = NodePath("VBoxContainer/BottomGridContainer")
 

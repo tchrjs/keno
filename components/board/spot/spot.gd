@@ -9,8 +9,13 @@ signal hit_toggled(toggled_on: bool)
 @export var hit: TextureRect
 @export var overlay: ColorRect
 
+@export var hit_sound: AudioStreamPlayer
+@export var miss_sound: AudioStreamPlayer
+
 var number: int = -1
 var is_marked: bool = false
+
+var play_state: Play
 
 func set_number(new_number: int) -> void:
 	number = new_number
@@ -26,10 +31,14 @@ func toggle_mark(toggled_on: bool) -> void:
 
 func toggle_overlay(toggled_on: bool) -> void:
 	overlay.visible = toggled_on
+	if toggled_on and !play_state.has_interrupted:
+		miss_sound.play()
 
 func toggle_hit(toggled_on: bool) -> void:
 	hit.visible = toggled_on
 	label.text = "HIT" if toggled_on else "X" if is_marked else str(number)
+	if toggled_on and !play_state.has_interrupted:
+		hit_sound.play()
 	emit_signal("hit_toggled", toggled_on)
 
 func reset() -> void:
