@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp4f8nqo8fkdr"]
+
+[ext_resource type="Script" uid="uid://dqv0bjixislca" path="res://components/hit_counter/hit_counter.gd" id="1_eybhm"]
+
+[node name="HitCounter" type="Control" node_paths=PackedStringArray("hits_label")]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+script = ExtResource("1_eybhm")
+hits_label = NodePath("HBoxContainer/Hits")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 93.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="HitLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Hits"
+vertical_alignment = 1
+
+[node name="Hits" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "0"
+vertical_alignment = 1

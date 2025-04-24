@@ -1,6 +1,7 @@
 class_name Spot extends Button
 
 signal mark_toggled(spot: Spot, toggled_on: bool)
+signal hit_toggled(toggled_on: bool)
 
 @export var background: TextureRect
 @export var mark: TextureRect
@@ -29,6 +30,7 @@ func toggle_overlay(toggled_on: bool) -> void:
 func toggle_hit(toggled_on: bool) -> void:
 	hit.visible = toggled_on
 	label.text = "HIT" if toggled_on else "X" if is_marked else str(number)
+	emit_signal("hit_toggled", toggled_on)
 
 func reset() -> void:
 	toggle_overlay(false)
